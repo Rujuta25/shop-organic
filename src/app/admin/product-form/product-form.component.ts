@@ -12,6 +12,7 @@ import 'rxjs/add/operator/take';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
+  route: any;
 
 
 
@@ -31,7 +32,8 @@ export class ProductFormComponent implements OnInit {
      this.id = this.routeActivate.snapshot.paramMap.get('id');
 
      //use the 'id' snapshot to assign to an angular object
-     if(this.id)  this.productService.getProductId(this.id).take(1).subscribe(p => this.product = p);
+     
+     if (this.id) this.productService.getProductId(this.id).take(1).subscribe(p => this.product = p);
   }
 
   save(product) {

@@ -6,6 +6,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './../environments/environment';
 import { FormsModule} from '@angular/forms';
 
+import { DataTableModule } from 'angular5-data-table'
+
 
 import { AppComponent } from './app.component';
 import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
@@ -28,6 +30,10 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
 import { CategoryService } from './category.service';
 import { ProductService } from './product.service';
 import {CustomFormsModule} from 'ng2-validation';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
+
+
 
 
 
@@ -45,6 +51,8 @@ import {CustomFormsModule} from 'ng2-validation';
     AdminOrdersComponent,
     LoginComponent,
     ProductFormComponent,
+    ProductFilterComponent,
+    ProductCardComponent,
     
 
    
@@ -56,11 +64,12 @@ import {CustomFormsModule} from 'ng2-validation';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     FormsModule,
+    DataTableModule,
     
     NgbModule.forRoot(),
     RouterModule.forRoot([
 
-      {path: '', component: HomeComponent},
+      {path: '', component: ProductsComponent},
       {path: 'shopping-cart', component: ShoppingCartComponent},
       {path: 'products', component: ProductsComponent},
       {path: 'login', component: LoginComponent},
