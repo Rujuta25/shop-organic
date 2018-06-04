@@ -10,20 +10,19 @@ import { ShoppoingCartService } from '../shoppoing-cart.service';
 export class ProductCardComponent implements OnInit {
 @Input('product') product : Products;
 @Input('show-actions') showActions = true;
+@Input('shopping-cart') mycart ;
+
   constructor(private shoppingcart : ShoppoingCartService) { }
 
   addToCart(product: Products)
   {
-    let cartId = localStorage.getItem('cartId') 
-    if(!cartId){
-       this.shoppingcart.create().then(result =>
-      {
-        localStorage.setItem('cartId', result.key);
-      });
-    }
-    else{
-      
-    }
+    this.shoppingcart.addToCart(product);
+  }
+
+  getQuantity(){
+    if(!this.mycart) return 0;
+    let item = this.mycart.items[this.product.$key];
+    return item ? item.quantity : 0;
   }
   ngOnInit() {
   }
