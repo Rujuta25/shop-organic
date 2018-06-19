@@ -51,13 +51,19 @@ export class ShoppoingCartService {
         let cartId = await this.getOrCreateCartId();
         let items$ =  this.getItem(cartId, product.$key);
          items$.take(1).subscribe(item => {
+          let quantity= (item.quantity||0) + change;
+          if(quantity=== 0) items$.remove();
+          else items$.update({         
+              title: product.title, 
+              imageUrl:product.imageUrl,
+              price: product.price,
+              quantity : (item.quantity || 0) + change }); 
+          });
+      }
 
-         items$.update({
-           title: product.title, 
-           imageUrl:product.imageUrl,
-           price: product.price,
-           quantity : (item.quantity || 0) + change });
-
-         });
+      async clearCart()
+      {
+        let cartId = await this.getOrCreateCartId();
+        this.db.object('/shopping-cart/' + cartId + '/items').remove();
       }
 }
