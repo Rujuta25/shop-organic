@@ -5,6 +5,7 @@ import { AuthService } from '../auth.service';
 import * as firebase from 'firebase';
 import { AppUser } from '../models/app-user';
 import { ShoppoingCartService } from '../shoppoing-cart.service';
+import { ShoppingCart } from '../models/shopping-cart';
 
 @Component({
   selector: 'bs-navbar',
@@ -18,6 +19,7 @@ export class BsNavbarComponent implements OnInit{
   //user$ :  Observable <firebase.User>
  appUser : AppUser;
  shoppingCartItemCount : number;
+ cart$ : Observable<ShoppingCart>;
   constructor(private auth: AuthService, private shoppingCart : ShoppoingCartService) {
 
     //tells or observes the latest state - logged in or not
@@ -33,14 +35,8 @@ export class BsNavbarComponent implements OnInit{
     async ngOnInit(){
       
       this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
-      let cart$ = await this.shoppingCart.getcartId();
-      cart$.subscribe(cart =>{
-        this.shoppingCartItemCount = 0;
-        for(let productId in cart.items)
-        {
-          this.shoppingCartItemCount += cart.items[productId].quantity;
-        }
-      })
+      this.cart$ = await this.shoppingCart.getcartId();
+      
   
     }
   }
